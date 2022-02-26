@@ -2,5 +2,6 @@
   max-width: 880px;
   margin: 0 auto;
   padding-top: 36px;
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content auto min-content;
 }

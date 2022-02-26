@@ -1,0 +1,4 @@
+.profile__info-line {
+  display: flex;
+  align-items: center;
+}

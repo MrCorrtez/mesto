@@ -1,0 +1,9 @@
+.profile__addButton {
+  background-color: #000000;
+  border: 0px;
+}
+
+.profile__addButton:hover {
+  opacity: .6;
+  cursor: pointer;
+}

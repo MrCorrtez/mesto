@@ -1,0 +1,14 @@
+.popup__exitButton {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: -40px;
+  right: -40px;
+  background: url("../../../images/close.svg") no-repeat center;
+  border: none;
+}
+
+.popup__exitButton:hover {
+  opacity: .6;
+  cursor: pointer;
+}

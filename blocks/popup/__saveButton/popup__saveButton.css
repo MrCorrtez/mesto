@@ -7,4 +7,10 @@
   border: none;
   font-size: 18px;
   line-height: 22px;
+  border-radius: 2px;
+}
+
+.popup__saveButton:hover {
+  opacity: .8;
+  cursor: pointer;
 }

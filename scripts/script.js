@@ -29,5 +29,4 @@ function formSubmitHandler(evt) {
 
 editButton.addEventListener('click', editProfile);
 exitButton.addEventListener('click', exitProfile);
-saveButton.addEventListener('click', saveProfile);
 popup.addEventListener('submit', formSubmitHandler);

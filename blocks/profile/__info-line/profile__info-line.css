@@ -1,4 +1,13 @@
 .profile__info-line {
   display: flex;
   align-items: center;
+  margin-right: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+  .profile__info-line {
+    margin: 0;
+    max-width: 100%;
+    justify-content: center;
+  }
 }

@@ -5,3 +5,9 @@
   margin: 0 auto;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 800px) {
+  .footer {
+    padding: 67px 20px 60px 20px;
+  }
+}

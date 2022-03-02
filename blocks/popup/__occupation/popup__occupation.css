@@ -13,3 +13,10 @@
 .popup__occupation:focus {
   outline: none;
 }
+
+@media screen and (max-width: 600px) {
+  .popup__occupation {
+    width: 238px;
+    margin-left: 22px;
+  }
+}

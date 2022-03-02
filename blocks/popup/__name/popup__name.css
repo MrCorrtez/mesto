@@ -13,3 +13,10 @@
 .popup__name:focus {
   outline: none;
 }
+
+@media screen and (max-width: 600px) {
+  .popup__name {
+    width: 238px;
+    margin-left: 22px;
+  }
+}

@@ -12,3 +12,12 @@
   opacity: .6;
   cursor: pointer;
 }
+
+@media screen and (max-width: 600px) {
+  .popup__exitButton {
+    width: 20px;
+    height: 20px;
+    top: -36px;
+    right: 0;
+  }
+}

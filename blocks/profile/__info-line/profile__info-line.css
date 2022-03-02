@@ -11,3 +11,10 @@
     justify-content: center;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .profile__info-line {
+    padding-left: 40px;
+  }
+}
+

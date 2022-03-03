@@ -1,16 +1,16 @@
 .elements {
   max-width: 880px;
-  padding: 47px 0 0 0;
+  padding: 50px 0 0 0;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3,calc((100% - 34px)/3));
-  gap: 17px 20px;
+  grid-template-columns: repeat(3,calc((100% - 35px)/3));
+  gap: 20px 17px;
 }
 
 @media screen and (max-width: 800px) {
   .elements {
     padding: 47px 20px 0 20px;
-    grid-template-columns: repeat(2,calc((100% - 17px)/2));
+    grid-template-columns: repeat(2,calc((100% - 20px)/2));
   }
 }
 
@@ -18,5 +18,6 @@
   .elements {
     padding-top: 36px;
     grid-template-columns: 100%;
+    gap: 21px;
   }
 }

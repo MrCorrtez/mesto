@@ -11,6 +11,7 @@
 
 @media screen and (max-width: 600px) {
   .popup__container {
+    top: 123px;
     grid-template-columns: 100%;
     width: 282px;
     height: 322px;

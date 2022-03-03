@@ -1,7 +1,7 @@
 .profile__occupation {
   margin: 0;
   max-width: 100%;
-  padding-top: 16px;
+  padding-top: 4px;
   font-size: 18px;
   line-height: 22px;
   text-overflow: ellipsis;
@@ -19,5 +19,6 @@
   .profile__occupation {
     font-size: 14px;
     line-height: 17px;
+    padding-top: 10px;
   }
 }

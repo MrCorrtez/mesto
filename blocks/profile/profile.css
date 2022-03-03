@@ -1,7 +1,7 @@
 .profile {
   max-width: 880px;
   margin: 0 auto;
-  padding-top: 36px;
+  padding-top: 41px;
   display: grid;
   grid-template-columns: min-content minmax(200px, 580px) min-content;
   align-items: center;
@@ -17,6 +17,6 @@
 
 @media screen and (max-width: 800px) {
   .profile {
-    padding: 36px 20px 0 20px;
+    padding: 41px 20px 0 20px;
   }
 }

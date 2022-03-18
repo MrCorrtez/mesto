@@ -34,15 +34,19 @@
     <p class="footer__text">&copy; 2022. MrCorrtez</p>
   </footer>
 
-  <form class="popup">
-    <div class="popup__container">
+  <section class="popup hidden">
+    <form class="popup__container hidden">
       <p class="popup__heading">Редактировать профиль</p>
       <input class="popup__name" type="text" placeholder="Заполните имя">
       <input class="popup__occupation" type="text" placeholder="Заполните род занятий">
       <button type="submit" class="popup__saveButton">Сохранить</button>
-      <button type="button" class="popup__exitButton"></button>
-    </div>
-  </form>
+      <button type="button" class="exitButton place_container"></button>
+    </form>
+    <form class="popup__big-card hidden">
+      <img class="popup__image" src="" alt="">
+      <button type="button" class="exitButton place_big-card"></button>
+    </form>
+  </section>
 
   <template id="card-template">
     <li class="elements__element">

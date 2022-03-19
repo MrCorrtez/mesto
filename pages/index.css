@@ -5,6 +5,7 @@
 @import url(../blocks/root/root.css);
 
 @import url(../blocks/hidden/hidden.css);
+@import url(../blocks/hidden/visible.css);
 
 @import url(../blocks/exitButton/exitButton.css);
 
@@ -39,6 +40,7 @@
 @import url(../blocks/popup/__saveButton/popup__saveButton.css);
 
 @import url(../blocks/popup/__big-card/popup__big-card.css);
+@import url(../blocks/popup/__caption/popup__caption.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);

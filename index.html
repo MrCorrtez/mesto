@@ -35,16 +35,26 @@
   </footer>
 
   <section class="popup hidden">
-    <form class="popup__container hidden">
+    <form class="popup__container type_profile hidden">
       <p class="popup__heading">Редактировать профиль</p>
       <input class="popup__name" type="text" placeholder="Заполните имя">
       <input class="popup__occupation" type="text" placeholder="Заполните род занятий">
       <button type="submit" class="popup__saveButton">Сохранить</button>
-      <button type="button" class="exitButton place_container"></button>
+      <button type="button" class="exitButton"></button>
     </form>
+
+    <form class="popup__container type_new-item hidden">
+      <p class="popup__heading">Новое место</p>
+      <input class="popup__name" type="text" placeholder="Название">
+      <input class="popup__occupation" type="text" placeholder="Ссылка на картинку">
+      <button type="submit" class="popup__saveButton">Создать</button>
+      <button type="button" class="exitButton"></button>
+    </form>
+
     <form class="popup__big-card hidden">
       <img class="popup__image" src="" alt="">
-      <button type="button" class="exitButton place_big-card"></button>
+      <button type="button" class="exitButton"></button>
+      <p class="popup__caption"></p>
     </form>
   </section>
 

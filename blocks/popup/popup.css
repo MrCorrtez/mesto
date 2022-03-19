@@ -10,4 +10,5 @@
   align-content: center;
   justify-content: center;
   overflow: auto;
+  transition: opacity 1s, visibility 1s linear;
 }

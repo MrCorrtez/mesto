@@ -1,6 +1,5 @@
 .profile {
-  max-width: 880px;
-  margin: 0 auto;
+  width: 100%;
   padding-top: 41px;
   display: grid;
   grid-template-columns: min-content minmax(200px, 580px) min-content;

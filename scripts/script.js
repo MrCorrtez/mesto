@@ -80,15 +80,7 @@ const formNewItemSubmitHandler = evt => {
 
   evt.preventDefault();
 
-  if (cardElements.children.length === 6) {
-    cardElements.lastElementChild.remove();
-  }
-
-  const newElement = {name: inputDescription.value, link: inputLink.value};
-  const newCard    = addCard(newElement);
-
-  cardElements.prepend(newCard);
-
+  addCardToDB();
   exitForm(evt);
 
 }
@@ -97,53 +89,102 @@ const addCard = element => {
 
   const cardElement  = cardTemplateNode.cloneNode(true);
 
+  cardElement.id = element.id;
+
   cardElement.querySelector('.elements__name').textContent = element.name;
   cardElement.querySelector('.elements__image').src        = element.link;
   cardElement.querySelector('.elements__image').alt         = element.name;
 
   cardElement.querySelector('.elements__like').addEventListener('click', evt => evt.target.classList.toggle('elements__like_active'));
-  cardElement.querySelector('.elements__deleteButton').addEventListener('click', evt => evt.target.closest('.elements__element').remove());
+  cardElement.querySelector('.elements__deleteButton').addEventListener('click', removeCard);
   cardElement.querySelector('.elements__image').addEventListener('click', openImageForm);
 
   return cardElement;
 
 }
 
-const initialRender = () => {
+const removeCard = evt => {
 
-  const initialCards = [
-    {
-      name: 'Лондон',
-      link: 'https://s3.nat-geo.ru/images/2019/4/10/b2580431d1fb410fa57d94a4c97a9213.max-1200x800.jpg'
-    },
-    {
-      name: 'Канада',
-      link: 'https://a.d-cd.net/fe84fbes-1920.jpg'
-    },
-    {
-      name: 'Швейцария',
-      link: 'https://dnpmag.com/wp-content/uploads/2016/06/718.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Тайланд',
-      link: 'https://tourdv.ru/wp-content/uploads/2018/04/Tajland.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
+  const element = evt.target.closest('.elements__element')
 
-  const initialElements = initialCards.map(addCard);
-  initialElements.forEach(element => cardElements.append(element));
+  const request = new XMLHttpRequest();
+
+  request.open("DELETE",  'http://127.0.0.1:3002/cards/' + element.id, true);
+
+  request.onload = function () {
+    if(request.readyState === XMLHttpRequest.DONE) {
+      refreshCards();
+    };
+  };
+
+  request.send(null);
 
 }
 
-initialRender();
+const refreshCards = () => {
+
+  const request = new XMLHttpRequest();
+
+  request.open('GET', 'http://127.0.0.1:3002/cards', true);
+
+  request.onload = function () {
+
+    let initialCards = [];
+
+    const data = JSON.parse(this.response);
+
+    data.forEach(record => {
+      initialCards.push({
+        id:   record.id,
+        name: record.name,
+        link: record.link,
+      });
+    });
+
+    while(cardElements.firstChild) {
+      cardElements.removeChild(cardElements.firstChild);
+    };
+
+    const initialElements = initialCards.map(addCard);
+    initialElements.forEach(element => cardElements.append(element));
+  }
+
+  request.onreadystatechange = function() {
+
+    if (request.readyState != 4) return;
+
+    if (request.status != 200) {
+      bigCardImage.src           = "https://xn--443-5cd3cgu2f.xn--p1ai/wp-content/uploads/error.jpg";
+
+      changeFormVisibility(formBigCard);
+    }
+
+  }
+
+  request.send()
+
+}
+
+const addCardToDB = () => {
+
+  const request = new XMLHttpRequest();
+
+  const body = 'name=' + encodeURIComponent(inputDescription.value) + '&link=' + encodeURIComponent(inputLink.value);
+
+  request.open("POST", 'http://127.0.0.1:3002/cards', true);
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  request.onreadystatechange = function () {
+    if(request.readyState === XMLHttpRequest.DONE && request.status === 201) {
+      refreshCards();
+    };
+  };
+
+  request.send(body);
+
+}
+
+refreshCards();
 
 exitButtons.forEach(element => element.addEventListener('click', exitForm));
 editButton.addEventListener('click', openProfileForm);

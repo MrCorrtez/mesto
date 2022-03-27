@@ -1,8 +1,16 @@
 .root {
-  padding: 0 200px 0 200px;
   font-family: 'Inter', Arial, sans-serif;
   background-color: #000000;
   color: #FFFFFF;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 200px 0 200px;
+
   text-rendering: optimizeLegibility;
 }
 

@@ -4,6 +4,7 @@
   display: grid;
   grid-template-columns: min-content minmax(200px, 580px) min-content;
   align-items: center;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 1000px) {

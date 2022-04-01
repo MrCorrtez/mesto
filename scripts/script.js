@@ -1,7 +1,6 @@
 const editButton  = document.querySelector('.profile__editButton');
 const addButton   = document.querySelector('.profile__addButton');
 const saveButton  = document.querySelector('.popup__saveButton');
-const exitButtons = document.querySelectorAll('.exitButton');
 
 const popup       = document.querySelector('.popup');
 const formBigCard = document.querySelector('.popup__big-card');
@@ -59,10 +58,19 @@ const openImageForm = evt => {
 
 const exitForm = evt => {
 
-  const evtForm = evt.target.closest('form');
+  let formElement;
 
-  changeFormVisibility(evtForm);
+  if (evt.target.classList.contains("popup")||evt.key==="Escape") {
+    formElement = popup.querySelector('.visible');
+  }
 
+  if (evt.target.classList.contains("exitButton")) {
+    formElement = evt.target.closest('form');
+  }
+
+  if (formElement) {
+    changeFormVisibility(formElement);
+  }
 }
 
 const formProfileSubmitHandler = evt => {
@@ -186,7 +194,8 @@ const addCardToDB = () => {
 
 refreshCards();
 
-exitButtons.forEach(element => element.addEventListener('click', exitForm));
+document.addEventListener('click', exitForm);
+document.addEventListener('keydown', exitForm);
 editButton.addEventListener('click', openProfileForm);
 addButton.addEventListener('click', openNewItemForm);
 formProfile.addEventListener('submit', formProfileSubmitHandler);

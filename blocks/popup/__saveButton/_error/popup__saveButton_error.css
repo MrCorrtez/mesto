@@ -1,0 +1,6 @@
+.popup__saveButton_error {
+  background-color: #FFFFFF;
+  color: black;
+  opacity: .2;
+  border: 1px solid black;
+}

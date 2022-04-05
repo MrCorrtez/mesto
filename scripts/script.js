@@ -7,10 +7,10 @@ const formBigCard = document.querySelector('.popup__big-card');
 const formProfile = document.querySelector('.type_profile');
 const formNewItem = document.querySelector('.type_new-item');
 
-const inputName        = document.querySelector('.type_profile .popup__name');
-const inputOccupation  = document.querySelector('.type_profile .popup__occupation');
-const inputDescription = document.querySelector('.type_new-item .popup__name');
-const inputLink        = document.querySelector('.type_new-item .popup__occupation');
+const inputName        = document.querySelector('.type_profile .popup__input_type_line-one');
+const inputOccupation  = document.querySelector('.type_profile .popup__input_type_line-two');
+const inputDescription = document.querySelector('.type_new-item .popup__input_type_line-one');
+const inputLink        = document.querySelector('.type_new-item .popup__input_type_line-two');
 
 const profileName       = document.querySelector('.profile__name');
 const profileOccupation = document.querySelector('.profile__occupation');
@@ -64,7 +64,7 @@ const exitForm = evt => {
     formElement = popup.querySelector('.visible');
   }
 
-  if (evt.target.classList.contains("exitButton")) {
+  if (evt.target.classList.contains("exitButton")||evt.target.type==='submit') {
     formElement = evt.target.closest('form');
   }
 
@@ -162,7 +162,8 @@ const refreshCards = () => {
     if (request.readyState != 4) return;
 
     if (request.status != 200) {
-      bigCardImage.src           = "https://xn--443-5cd3cgu2f.xn--p1ai/wp-content/uploads/error.jpg";
+      bigCardImage.src = "./images/error.jpg";
+       //"https://xn--443-5cd3cgu2f.xn--p1ai/wp-content/uploads/error.jpg";
 
       changeFormVisibility(formBigCard);
     }

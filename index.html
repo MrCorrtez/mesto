@@ -41,18 +41,20 @@
   <section class="popup hidden">
     <form class="popup__container type_profile hidden">
       <p class="popup__heading">Редактировать профиль</p>
-      <input class="popup__name" type="text" placeholder="Заполните имя">
-      <input class="popup__occupation" type="text" placeholder="Заполните род занятий">
-      <button type="submit" class="popup__saveButton">Сохранить</button>
+      <input class="popup__input popup__input_type_line-one popup__input_style-error" type="text" placeholder="Заполните имя">
+      <span class="popup__input-error">Текст ошибки</span>
+      <input class="popup__input popup__input_type_line-two" type="text" placeholder="Заполните род занятий">
+      <button type="submit" class="popup__saveButton popup__saveButton_error">Сохранить</button>
       <button type="button" class="exitButton"></button>
     </form>
 
     <form class="popup__container type_new-item hidden">
       <p class="popup__heading">Новое место</p>
-      <input class="popup__name" type="text" placeholder="Название">
-      <input class="popup__occupation" type="text" placeholder="Ссылка на картинку">
+      <input class="popup__input popup__input_type_line-one" type="text" placeholder="Название">
+      <input class="popup__input popup__input_type_line-two" type="text" placeholder="Ссылка на картинку">
       <button type="submit" class="popup__saveButton">Создать</button>
       <button type="button" class="exitButton"></button>
+
     </form>
 
     <form class="popup__big-card hidden">
@@ -74,6 +76,7 @@
   </template>
 
   <script src="./scripts/script.js"></script>
+  <script src="./scripts/validate.js"></script>
 <body>
 
 </html>

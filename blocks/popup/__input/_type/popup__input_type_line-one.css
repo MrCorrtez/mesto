@@ -1,0 +1,10 @@
+.popup__input_type_line-one {
+  margin: 45px 0 0 34px;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__input_type_line-one {
+    margin-top: 75px;
+    margin-left: 22px;
+  }
+}

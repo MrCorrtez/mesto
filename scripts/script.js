@@ -37,6 +37,9 @@ const openProfileForm = () => {
   inputName.value       = profileName.textContent;
   inputOccupation.value = profileOccupation.textContent;
 
+  checkInputValidity(inputName);
+  checkInputValidity(inputOccupation);
+
   changeFormVisibility(formProfile);
 
 }

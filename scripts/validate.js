@@ -1,77 +1,74 @@
-const enableDocumentValidating = () => {
+const enableDocumentValidating = ({formSelector,...parametres}) => {
 
-  const formList = Array.from(document.querySelectorAll('.popup__container'));
+  const formList = Array.from(document.querySelectorAll(formSelector));
 
-  formList.forEach(enableFormValidating);
+  formList.forEach(formElement => enableFormValidating(formElement, parametres));
 
 }
 
-const enableFormValidating = formElement => {
+const enableFormValidating = (formElement,{inputSelector,...parametres}) => {
 
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
 
   inputList.forEach(input => {
-    input.addEventListener('input', setInputValidity);
-    checkInputValidity(input);
+
+    input.addEventListener('input', function() {
+
+      if (!input.validity.valid) {
+        showError(input,parametres);
+      }
+      else {
+        hideError(input,parametres);
+      }
+
+      checkSubmitterAvailability(inputList,parametres);
+
+    });
+
   });
-
 }
 
-const setInputValidity = evt => {
+const checkSubmitterAvailability = (inputList,{submitButtonSelector,inactiveButtonClass,...parametres}) => {
 
-  checkInputValidity(evt.target);
-
-}
-
-const checkInputValidity = input => {
-
-  if (!input.validity.valid) {
-    showError(input);
-  }
-  else {
-    hideError(input);
-  }
-
-  checkSubmitterAvailability(input.form);
-
-}
-
-const checkSubmitterAvailability = formElement => {
-
-  const submitButton = formElement.querySelector('.popup__saveButton');
-
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const submitButton = inputList[0].form.querySelector(submitButtonSelector);
 
   if (inputList.every(input => input.validity.valid)) {
-    submitButton.classList.remove('popup__saveButton_error');
+    submitButton.classList.remove(inactiveButtonClass);
     submitButton.disabled = false;
   }
   else {
-    submitButton.classList.add('popup__saveButton_error');
+    submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
   }
 
 }
 
-const showError = input => {
+const showError = (input,{inputErrorClass,errorClass,...parametres}) => {
 
-  input.classList.add('popup__input_style-error');
+  input.classList.add(inputErrorClass);
 
-  const spanError = input.form.querySelector('.popup__input-error_place_line' + input.id);
+  const spanError = input.form.querySelector('.' + errorClass + input.id);
 
   spanError.classList.remove('hidden');
   spanError.textContent = input.validationMessage;
 
 }
 
-const hideError = input => {
+const hideError = (input,{inputErrorClass,errorClass,...parametres}) => {
 
-  input.classList.remove('popup__input_style-error');
+  input.classList.remove(inputErrorClass);
 
-  const spanError = input.form.querySelector('.popup__input-error_place_line' + input.id);
+  const spanError = input.form.querySelector('.' + errorClass + input.id);
 
   spanError.classList.add('hidden');
 
 }
 
-enableDocumentValidating();
+enableDocumentValidating({
+  formSelector:         '.popup__container',
+  inputSelector:        '.popup__input',
+  submitButtonSelector: '.popup__saveButton',
+  inactiveButtonClass:  'popup__saveButton_error',
+  inputErrorClass:      'popup__input_style-error',
+  errorClass:           'popup__input-error_place_line'
+});

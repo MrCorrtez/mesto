@@ -37,16 +37,15 @@ const openProfileForm = () => {
   inputName.value       = profileName.textContent;
   inputOccupation.value = profileOccupation.textContent;
 
-  checkInputValidity(inputName);
-  checkInputValidity(inputOccupation);
-
   changeFormVisibility(formProfile);
+  document.addEventListener('keydown', exitForm);
 
 }
 
 const openNewItemForm = () => {
 
   changeFormVisibility(formNewItem);
+  document.addEventListener('keydown', exitForm);
 
 }
 
@@ -56,6 +55,7 @@ const openImageForm = evt => {
   bigCardCaption.textContent = evt.target.alt;
 
   changeFormVisibility(formBigCard);
+  document.addEventListener('keydown', exitForm);
 
 }
 
@@ -73,10 +73,11 @@ const exitForm = evt => {
 
   if (formElement) {
     changeFormVisibility(formElement);
+    document.removeEventListener('keydown', exitForm);
   }
 }
 
-const formProfileSubmitHandler = evt => {
+const handleformProfileSubmit = evt => {
 
   evt.preventDefault();
 
@@ -87,7 +88,7 @@ const formProfileSubmitHandler = evt => {
 
 }
 
-const formNewItemSubmitHandler = evt => {
+const handleformNewItemSubmit = evt => {
 
   evt.preventDefault();
 
@@ -199,8 +200,7 @@ const addCardToDB = () => {
 refreshCards();
 
 document.addEventListener('click', exitForm);
-document.addEventListener('keydown', exitForm);
 editButton.addEventListener('click', openProfileForm);
 addButton.addEventListener('click', openNewItemForm);
-formProfile.addEventListener('submit', formProfileSubmitHandler);
-formNewItem.addEventListener('submit', formNewItemSubmitHandler);
+formProfile.addEventListener('submit', handleformProfileSubmit);
+formNewItem.addEventListener('submit', handleformNewItemSubmit);

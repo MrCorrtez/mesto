@@ -18,10 +18,86 @@ const profileOccupation = document.querySelector('.profile__occupation');
 const bigCardImage   = document.querySelector('.popup__image')
 const bigCardCaption = document.querySelector('.popup__caption')
 
-const cardTemplate = document.querySelector('#card-template').content;
-const cardTemplateNode = cardTemplate.querySelector('.elements__element');
-
 const cardElements = document.querySelector('.elements');
+
+class Card {
+
+  constructor(dbRecord, cardSelector) {
+    this.id = dbRecord.id;
+    this.link = dbRecord.link;
+    this.name = dbRecord.name;
+    this.cardSelector = cardSelector;
+  }
+
+  _getTemplate() {
+
+    const cardElement  = document
+      .querySelector(this.cardSelector)
+      .content
+      .querySelector('.elements__element')
+      .cloneNode(true);
+
+    return cardElement;
+
+  }
+
+  _setEventListeners() {
+
+    this._element.querySelector('.elements__like').addEventListener('click', this._toggleLike);
+    this._element.querySelector('.elements__deleteButton').addEventListener('click', this._removeCard);
+    this._element.querySelector('.elements__image').addEventListener('click', this._openImageForm);
+
+  }
+
+  _toggleLike(evt) {
+    evt.target.classList.toggle('elements__like_active');    
+  }
+
+  _removeCard(evt)  {
+
+    const element = evt.target.closest('.elements__element')
+  
+    const request = new XMLHttpRequest();
+  
+    request.open("DELETE",  'http://127.0.0.1:3002/cards/' + element.id, true);
+  
+    request.onload = function () {
+      if(request.readyState === XMLHttpRequest.DONE) {
+        element.remove();        
+      };
+    };
+  
+    request.send(null);
+  
+  }
+
+  _openImageForm(evt) {
+
+    bigCardImage.src           = evt.target.src;
+    bigCardCaption.textContent = evt.target.alt;
+  
+    changeFormVisibility(formBigCard);
+    document.addEventListener('keydown', exitForm);
+  
+  }
+
+  addCard() {
+    
+    this._element = this._getTemplate();
+
+    this._setEventListeners();
+
+    this._element.id = this.id;
+  
+    this._element.querySelector('.elements__name').textContent = this.name;
+    this._element.querySelector('.elements__image').src        = this.link;
+    this._element.querySelector('.elements__image').alt        = this.name;
+   
+    return this._element;
+  
+  }
+
+}
 
 const changeFormVisibility = form => {
 
@@ -45,16 +121,6 @@ const openProfileForm = () => {
 const openNewItemForm = () => {
 
   changeFormVisibility(formNewItem);
-  document.addEventListener('keydown', exitForm);
-
-}
-
-const openImageForm = evt => {
-
-  bigCardImage.src           = evt.target.src;
-  bigCardCaption.textContent = evt.target.alt;
-
-  changeFormVisibility(formBigCard);
   document.addEventListener('keydown', exitForm);
 
 }
@@ -97,68 +163,27 @@ const handleformNewItemSubmit = evt => {
 
 }
 
-const addCard = element => {
-
-  const cardElement  = cardTemplateNode.cloneNode(true);
-
-  cardElement.id = element.id;
-
-  cardElement.querySelector('.elements__name').textContent = element.name;
-  cardElement.querySelector('.elements__image').src        = element.link;
-  cardElement.querySelector('.elements__image').alt         = element.name;
-
-  cardElement.querySelector('.elements__like').addEventListener('click', evt => evt.target.classList.toggle('elements__like_active'));
-  cardElement.querySelector('.elements__deleteButton').addEventListener('click', removeCard);
-  cardElement.querySelector('.elements__image').addEventListener('click', openImageForm);
-
-  return cardElement;
-
-}
-
-const removeCard = evt => {
-
-  const element = evt.target.closest('.elements__element')
-
-  const request = new XMLHttpRequest();
-
-  request.open("DELETE",  'http://127.0.0.1:3002/cards/' + element.id, true);
-
-  request.onload = function () {
-    if(request.readyState === XMLHttpRequest.DONE) {
-      refreshCards();
-    };
-  };
-
-  request.send(null);
-
-}
-
 const refreshCards = () => {
 
   const request = new XMLHttpRequest();
 
   request.open('GET', 'http://127.0.0.1:3002/cards', true);
 
-  request.onload = function () {
+  while(cardElements.firstChild) {
+    cardElements.removeChild(cardElements.firstChild);
+  };
 
-    let initialCards = [];
+  request.onload = function () {    
 
     const data = JSON.parse(this.response);
 
     data.forEach(record => {
-      initialCards.push({
-        id:   record.id,
-        name: record.name,
-        link: record.link,
-      });
-    });
 
-    while(cardElements.firstChild) {
-      cardElements.removeChild(cardElements.firstChild);
-    };
+      newCard = new Card(record, '#card-template');
+      cardElements.append(newCard.addCard());
 
-    const initialElements = initialCards.map(addCard);
-    initialElements.forEach(element => cardElements.append(element));
+    });   
+    
   }
 
   request.onreadystatechange = function() {
@@ -167,8 +192,6 @@ const refreshCards = () => {
 
     if (request.status != 200) {
       bigCardImage.src = "./images/error.jpg";
-       //"https://xn--443-5cd3cgu2f.xn--p1ai/wp-content/uploads/error.jpg";
-
       changeFormVisibility(formBigCard);
     }
 

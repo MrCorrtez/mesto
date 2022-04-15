@@ -1,66 +1,91 @@
+class FormValidator {
+
+  constructor(parametres, formElement) {
+
+    this._inputList            = Array.from(formElement.querySelectorAll(parametres.inputSelector));
+    this._submitButtonSelector = parametres.submitButtonSelector;
+    this._inactiveButtonClass  = parametres.inactiveButtonClass;
+    this._inputErrorClass      = parametres.inputErrorClass;
+    this._errorClass           = parametres.errorClass;       
+
+  }
+
+
+  enableValidation () {
+
+    this._inputList.forEach(input => {
+  
+      input.addEventListener('input', (evt) => {
+        this._handleValidity(evt);
+      });
+  
+    });  
+
+  }
+
+  _handleValidity(evt) {
+
+    const input = evt.target;
+
+    if (!input.validity.valid) {
+      this._showError(input);
+    }
+    else {
+      this._hideError(input);
+    }
+
+    this._checkSubmitterAvailability();    
+
+  }
+
+  _checkSubmitterAvailability() {
+
+    const submitButton = this._inputList[0].form.querySelector(this._submitButtonSelector);
+  
+    if (this._inputList.every(input => input.validity.valid)) {
+      submitButton.classList.remove(this._inactiveButtonClass);
+      submitButton.disabled = false;
+    }
+    else {
+      submitButton.classList.add(this._inactiveButtonClass);
+      submitButton.disabled = true;
+    }
+  
+  }
+  
+  _showError(input) {
+  
+    input.classList.add(this._inputErrorClass);
+  
+    const spanError = input.form.querySelector('.' + this._errorClass + input.id);
+  
+    spanError.classList.remove('hidden');
+    spanError.textContent = input.validationMessage;
+  
+  }
+  
+  _hideError(input) {
+  
+    input.classList.remove(this._inputErrorClass);
+  
+    const spanError = input.form.querySelector('.' + this._errorClass + input.id);
+  
+    spanError.classList.add('hidden');
+  
+  }
+
+}
+
 const enableDocumentValidating = ({formSelector,...parametres}) => {
 
   const formList = Array.from(document.querySelectorAll(formSelector));
 
-  formList.forEach(formElement => enableFormValidating(formElement, parametres));
+  formList.forEach(formElement => {
 
-}
-
-const enableFormValidating = (formElement,{inputSelector,...parametres}) => {
-
-  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-
-  inputList.forEach(input => {
-
-    input.addEventListener('input', function() {
-
-      if (!input.validity.valid) {
-        showError(input,parametres);
-      }
-      else {
-        hideError(input,parametres);
-      }
-
-      checkSubmitterAvailability(inputList,parametres);
-
-    });
-
-  });
-}
-
-const checkSubmitterAvailability = (inputList,{submitButtonSelector,inactiveButtonClass,...parametres}) => {
-
-  const submitButton = inputList[0].form.querySelector(submitButtonSelector);
-
-  if (inputList.every(input => input.validity.valid)) {
-    submitButton.classList.remove(inactiveButtonClass);
-    submitButton.disabled = false;
-  }
-  else {
-    submitButton.classList.add(inactiveButtonClass);
-    submitButton.disabled = true;
-  }
-
-}
-
-const showError = (input,{inputErrorClass,errorClass,...parametres}) => {
-
-  input.classList.add(inputErrorClass);
-
-  const spanError = input.form.querySelector('.' + errorClass + input.id);
-
-  spanError.classList.remove('hidden');
-  spanError.textContent = input.validationMessage;
-
-}
-
-const hideError = (input,{inputErrorClass,errorClass,...parametres}) => {
-
-  input.classList.remove(inputErrorClass);
-
-  const spanError = input.form.querySelector('.' + errorClass + input.id);
-
-  spanError.classList.add('hidden');
+    validator = new FormValidator(parametres, formElement);
+    validator.enableValidation();
+    
+  });  
 
 }
 

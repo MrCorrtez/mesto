@@ -1,4 +1,6 @@
-class FormValidator {
+import {validatingParametres as validatingParametres} from './variables.js';
+
+export class FormValidator {
 
   constructor(parametres, formElement) {
 
@@ -76,24 +78,16 @@ class FormValidator {
 
 }
 
-const enableDocumentValidating = ({formSelector,...parametres}) => {
+export default function enableDocumentValidating() {
 
+  const {formSelector,...parametres} = validatingParametres;
   const formList = Array.from(document.querySelectorAll(formSelector));
 
   formList.forEach(formElement => {
 
-    validator = new FormValidator(parametres, formElement);
+    const validator = new FormValidator(parametres, formElement);
     validator.enableValidation();
     
   });  
 
 }
-
-enableDocumentValidating({
-  formSelector:         '.popup__container',
-  inputSelector:        '.popup__input',
-  submitButtonSelector: '.popup__saveButton',
-  inactiveButtonClass:  'popup__saveButton_error',
-  inputErrorClass:      'popup__input_style-error',
-  errorClass:           'popup__input-error_place_line'
-});

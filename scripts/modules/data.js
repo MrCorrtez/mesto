@@ -1,5 +1,8 @@
 import Card from './card.js';
+import Section from './Section.js';
 import {inputDescription, inputLink, cardElements} from './variables.js';
+
+let CardsSection = undefined; 
 
 export default function refreshCards() {
 
@@ -12,15 +15,16 @@ export default function refreshCards() {
   request.open('GET', 'http://127.0.0.1:3002/cards', true);
 
   request.onload = function () {    
+    
+    const data = {items: JSON.parse(this.response),
+                  renderer: record => {
+                    const newCard = new Card(record, '#card-template');
+                    const cardElement = newCard.getCard();
+                    CardsSection.addItem(cardElement);            
+                  }};
 
-    const data = JSON.parse(this.response);
-
-    data.forEach(record => {
-
-      const newCard = new Card(record, '#card-template');
-      cardElements.append(newCard.addCard());
-
-    });   
+    CardsSection = new Section(data, '.elements');
+    CardsSection.renderAll();
     
   }
 
@@ -43,17 +47,26 @@ export const addCardToDB = () => {
 
   const request = new XMLHttpRequest();
 
-  const body = 'name=' + encodeURIComponent(inputDescription.value) + '&link=' + encodeURIComponent(inputLink.value);
+  const name = inputDescription.value;
+  const link = inputLink.value;
 
   request.open("POST", 'http://127.0.0.1:3002/cards', true);
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   request.onreadystatechange = function () {
     if(request.readyState === XMLHttpRequest.DONE && request.status === 201) {
-      refreshCards();
+
+      const record = {id: Number(request.response), 
+                      name: name,
+                      link: link};
+
+      const newCard = new Card(record, '#card-template');
+      const cardElement = newCard.getCard();
+      CardsSection.addItem(cardElement);
+
     };
   };
 
-  request.send(body);
+  request.send('name=' + encodeURIComponent(name) + '&link=' + encodeURIComponent(link));
 
 }

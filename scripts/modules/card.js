@@ -1,5 +1,4 @@
-import {formBigCard, bigCardImage, bigCardCaption} from './variables.js';
-import {changeFormVisibility, exitForm} from './handlers.js';
+import {imagePopup} from '../main.js';
 
 export default class Card {
 
@@ -54,15 +53,11 @@ export default class Card {
   
     _openImageForm(evt) {
   
-      bigCardImage.src           = evt.target.src;
-      bigCardCaption.textContent = evt.target.alt;
-    
-      changeFormVisibility(formBigCard);
-      document.addEventListener('keydown', exitForm);
+      imagePopup.open(evt.target.src, evt.target.alt);      
     
     }
   
-    addCard() {
+    getCard() {
       
       this._element = this._getTemplate();
   

@@ -41,9 +41,9 @@
   <section class="popup hidden">
     <form class="popup__container type_profile hidden" novalidate>
       <p class="popup__heading">Редактировать профиль</p>
-      <input class="popup__input popup__input_type_line-one" type="text" placeholder="Заполните имя" minlength="2" maxlength="40" required id="1">
+      <input class="popup__input popup__input_type_line-one" name="Name" type="text" placeholder="Заполните имя" minlength="2" maxlength="40" required id="1">
       <span class="popup__input-error popup__input-error_place_line1 hidden"></span>
-      <input class="popup__input popup__input_type_line-two" type="text" placeholder="Заполните род занятий" minlength="2" maxlength="200" required id="2">
+      <input class="popup__input popup__input_type_line-two" name="Occupation" type="text" placeholder="Заполните род занятий" minlength="2" maxlength="200" required id="2">
       <span class="popup__input-error popup__input-error_place_line2 hidden"></span>
       <button type="submit" class="popup__saveButton popup__saveButton_error" disabled>Сохранить</button>
       <button type="button" class="exitButton"></button>
@@ -51,9 +51,9 @@
 
     <form class="popup__container type_new-item hidden" novalidate>
       <p class="popup__heading">Новое место</p>
-      <input class="popup__input popup__input_type_line-one" type="text" placeholder="Название"  minlength="2" maxlength="30" required id="1">
+      <input class="popup__input popup__input_type_line-one" name="Name" type="text" placeholder="Название"  minlength="2" maxlength="30" required id="1">
       <span class="popup__input-error popup__input-error_place_line1 hidden"></span>
-      <input class="popup__input popup__input_type_line-two" type="url" placeholder="Ссылка на картинку" required id="2">
+      <input class="popup__input popup__input_type_line-two" name="Link" type="url" placeholder="Ссылка на картинку" required id="2">
       <span class="popup__input-error popup__input-error_place_line2 hidden"></span>
       <button type="submit" class="popup__saveButton popup__saveButton_error" disabled>Создать</button>
       <button type="button" class="exitButton"></button>

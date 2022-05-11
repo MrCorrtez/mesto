@@ -18,10 +18,10 @@
       <img class="profile__avatar" src="./images/avatar.jpg" alt="Картинка профайла">
       <div class="profile__info">
         <div class="profile__info-line">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
           <button type="button" class="profile__editButton"></button>
         </div>
-        <p class="profile__occupation">Исследователь океана</p>
+        <p class="profile__occupation"></p>
       </div>
       <button type="button" class="profile__addButton"></button>
     </section>
@@ -41,9 +41,9 @@
   <section class="popup hidden">
     <form class="popup__container type_profile hidden" novalidate>
       <p class="popup__heading">Редактировать профиль</p>
-      <input class="popup__input popup__input_type_line-one" name="Name" type="text" placeholder="Заполните имя" minlength="2" maxlength="40" required id="1">
+      <input class="popup__input popup__input_type_line-one" name="name" type="text" placeholder="Заполните имя" minlength="2" maxlength="40" required id="1">
       <span class="popup__input-error popup__input-error_place_line1 hidden"></span>
-      <input class="popup__input popup__input_type_line-two" name="Occupation" type="text" placeholder="Заполните род занятий" minlength="2" maxlength="200" required id="2">
+      <input class="popup__input popup__input_type_line-two" name="occupation" type="text" placeholder="Заполните род занятий" minlength="2" maxlength="200" required id="2">
       <span class="popup__input-error popup__input-error_place_line2 hidden"></span>
       <button type="submit" class="popup__saveButton popup__saveButton_error" disabled>Сохранить</button>
       <button type="button" class="exitButton"></button>
@@ -51,9 +51,9 @@
 
     <form class="popup__container type_new-item hidden" novalidate>
       <p class="popup__heading">Новое место</p>
-      <input class="popup__input popup__input_type_line-one" name="Name" type="text" placeholder="Название"  minlength="2" maxlength="30" required id="1">
+      <input class="popup__input popup__input_type_line-one" name="name" type="text" placeholder="Название"  minlength="2" maxlength="30" required id="1">
       <span class="popup__input-error popup__input-error_place_line1 hidden"></span>
-      <input class="popup__input popup__input_type_line-two" name="Link" type="url" placeholder="Ссылка на картинку" required id="2">
+      <input class="popup__input popup__input_type_line-two" name="link" type="url" placeholder="Ссылка на картинку" required id="2">
       <span class="popup__input-error popup__input-error_place_line2 hidden"></span>
       <button type="submit" class="popup__saveButton popup__saveButton_error" disabled>Создать</button>
       <button type="button" class="exitButton"></button>
@@ -77,7 +77,7 @@
     </li>
   </template>
   
-  <script type="module" src="./scripts/main.js"></script>
+  <script type="module" src="./pages/index.js"></script>
     
 <body>
 

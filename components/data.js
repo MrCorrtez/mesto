@@ -1,6 +1,7 @@
-import Card from './card.js';
+import Card from './Card.js';
 import Section from './Section.js';
-import {inputDescription, inputLink, cardElements} from './variables.js';
+import {imagePopup} from '../pages/index.js';
+import {inputDescription, inputLink, cardElements} from '../utils/variables.js';
 
 let CardsSection = undefined; 
 
@@ -18,7 +19,7 @@ export default function refreshCards() {
     
     const data = {items: JSON.parse(this.response),
                   renderer: record => {
-                    const newCard = new Card(record, '#card-template');
+                    const newCard = new Card(record, '#card-template', evt => imagePopup.open(evt.target.src, evt.target.alt));
                     const cardElement = newCard.getCard();
                     CardsSection.addItem(cardElement);            
                   }};
@@ -60,7 +61,7 @@ export const addCardToDB = () => {
                       name: name,
                       link: link};
 
-      const newCard = new Card(record, '#card-template');
+      const newCard = new Card(record, '#card-template', evt => imagePopup.open(evt.target.src, evt.target.alt));
       const cardElement = newCard.getCard();
       CardsSection.addItem(cardElement);
 

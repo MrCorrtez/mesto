@@ -1,6 +1,4 @@
-import {validatingParametres as validatingParametres} from './variables.js';
-
-export class FormValidator {
+export default class FormValidator {
 
   constructor(parametres, formElement) {
 
@@ -75,19 +73,5 @@ export class FormValidator {
     spanError.classList.add('hidden');
   
   }
-
-}
-
-export default function enableDocumentValidating() {
-
-  const {formSelector,...parametres} = validatingParametres;
-  const formList = Array.from(document.querySelectorAll(formSelector));
-
-  formList.forEach(formElement => {
-
-    const validator = new FormValidator(parametres, formElement);
-    validator.enableValidation();
-    
-  });  
 
 }

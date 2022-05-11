@@ -1,18 +1,17 @@
-import {imagePopup} from '../main.js';
-
 export default class Card {
 
-    constructor(dbRecord, cardSelector) {
-      this.id = dbRecord.id;
-      this.link = dbRecord.link;
-      this.name = dbRecord.name;
-      this.cardSelector = cardSelector;      
+    constructor(dbRecord, cardSelector, handleCardClick) {
+      this._id = dbRecord.id;
+      this._link = dbRecord.link;
+      this._name = dbRecord.name;
+      this._cardSelector = cardSelector;      
+      this._handleCardClick = handleCardClick;
     }
   
     _getTemplate() {
   
       const cardElement  = document
-        .querySelector(this.cardSelector)
+        .querySelector(this._cardSelector)
         .content
         .querySelector('.elements__element')
         .cloneNode(true);
@@ -25,7 +24,7 @@ export default class Card {
   
       this._element.querySelector('.elements__like').addEventListener('click', this._toggleLike);
       this._element.querySelector('.elements__deleteButton').addEventListener('click', this._removeCard);
-      this._element.querySelector('.elements__image').addEventListener('click', this._openImageForm);
+      this._element.querySelector('.elements__image').addEventListener('click', this._handleCardClick);
   
     }
   
@@ -39,7 +38,7 @@ export default class Card {
     
       const request = new XMLHttpRequest();
     
-      request.open("DELETE",  'http://127.0.0.1:3002/cards/' + element.id, true);
+      request.open("DELETE",  'http://127.0.0.1:3002/cards/' + element._id, true);
     
       request.onload = function () {
         if(request.readyState === XMLHttpRequest.DONE) {
@@ -51,23 +50,17 @@ export default class Card {
     
     }
   
-    _openImageForm(evt) {
-  
-      imagePopup.open(evt.target.src, evt.target.alt);      
-    
-    }
-  
     getCard() {
       
       this._element = this._getTemplate();
   
       this._setEventListeners();
   
-      this._element.id = this.id;
+      this._element.id = this._id;
     
-      this._element.querySelector('.elements__name').textContent = this.name;
-      this._element.querySelector('.elements__image').src        = this.link;
-      this._element.querySelector('.elements__image').alt        = this.name;
+      this._element.querySelector('.elements__name').textContent = this._name;
+      this._element.querySelector('.elements__image').src        = this._link;
+      this._element.querySelector('.elements__image').alt        = this._name;
      
       return this._element;
     

@@ -1,3 +1,5 @@
+import './index.css';
+
 import refreshCards from '../components/data.js';
 
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -17,6 +19,7 @@ imagePopup.setEventListeners();
 
 //popup редактирования профайла
 export const profilePopup = new PopupWithForm('.type_profile', evt => {
+    
     evt.preventDefault();
   
     profilePopup._getInputValues();

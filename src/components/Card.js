@@ -1,11 +1,12 @@
 export default class Card {
 
-    constructor(dbRecord, cardSelector, handleCardClick) {
+    constructor(dbRecord, cardSelector, handleCardClick, handleDeleteButtonClick) {
       this._id = dbRecord.id;
       this._link = dbRecord.link;
       this._name = dbRecord.name;
       this._cardSelector = cardSelector;      
       this._handleCardClick = handleCardClick;
+      this._handleDeleteButtonClick = handleDeleteButtonClick
     }
   
     _getTemplate() {
@@ -23,32 +24,14 @@ export default class Card {
     _setEventListeners() {
   
       this._element.querySelector('.elements__like').addEventListener('click', this._toggleLike);
-      this._element.querySelector('.elements__deleteButton').addEventListener('click', this._removeCard);
+      this._element.querySelector('.elements__deleteButton').addEventListener('click', this._handleDeleteButtonClick);
       this._element.querySelector('.elements__image').addEventListener('click', this._handleCardClick);
   
     }
   
     _toggleLike(evt) {
       evt.target.classList.toggle('elements__like_active');    
-    }
-  
-    _removeCard(evt)  {
-  
-      const element = evt.target.closest('.elements__element')
-    
-      const request = new XMLHttpRequest();
-    
-      request.open("DELETE",  'http://127.0.0.1:3002/cards/' + element._id, true);
-    
-      request.onload = function () {
-        if(request.readyState === XMLHttpRequest.DONE) {
-          element.remove();        
-        };
-      };
-    
-      request.send(null);
-    
-    }
+    }    
   
     getCard() {
       
